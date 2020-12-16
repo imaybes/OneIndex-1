@@ -1,6 +1,6 @@
 <?php
 
-//密钥
+//密钥123456
 
 $secret = "123456"; //Github项目中对应的Secret
 
@@ -26,7 +26,7 @@ if ($hash !== $payloadHash) {
 }
 
 echo "开始部署<br>";
-chdir("/"); // 切换目录
+// chdir("/wwwroot/OneIndex"); // 切换目录
 exec("git pull 2>&1", $out);
 foreach ($out as $v) {
   echo iconv('GB2312', 'UTF-8', $v) . "<br>";
