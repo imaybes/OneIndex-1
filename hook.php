@@ -26,8 +26,7 @@ if ($hash !== $payloadHash) {
 }
 
 echo "开始部署<br>";
-chdir("/wwwroot/OneIndex"); // 切换目录
-exec("git pull origin master", $out);
-foreach ($out as $v) {
-  echo iconv('GB2312', 'UTF-8', $v) . "<br>";
-}
+
+$res = shell_exec("cd C:\wwwroot\OneIndex & git pull origin master");
+
+echo $res;
