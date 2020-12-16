@@ -18,6 +18,7 @@ $content = json_decode($requestBody, true);
 $path = "/wwwroot/OneIndex"; //项目存放物理路径
 //判断master分支上是否有提交
 if ($content['ref'] == 'refs/heads/master' && $content['commits']["length"] > 0) {
+  echo "start";
   $res = shell_exec("cd {$path} && git pull origin master 2>&1"); //当前为www用户
   $res_log = '------------------------->' . PHP_EOL;
   $res_log .= '用户' . $content['user_name'] . ' 于' . date('Y-m-d H:i:s') . '向' . $content['repository']['name'] . '项目的' . $content['ref'] . '分支push了' . $content['commits']["length"] . '个commit：' . PHP_EOL;
@@ -28,5 +29,7 @@ if ($content['ref'] == 'refs/heads/master' && $content['commits']["length"] > 0)
   } else {
     echo 'false-';
   }
+} else {
+  echo "jump";
 }
 echo 'done';
