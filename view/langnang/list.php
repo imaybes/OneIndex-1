@@ -12,6 +12,9 @@ function file_ico($item)
 	if (in_array($ext, ['ogg', 'mp3', 'wav'])) {
 		return "audiotrack";
 	}
+	if (in_array($ext, ['pdf'])) {
+		return "picture_as_pdf";
+	}
 	return "insert_drive_file";
 }
 ?>
