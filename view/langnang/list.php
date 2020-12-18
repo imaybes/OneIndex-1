@@ -4,18 +4,18 @@ function file_ico($item)
 {
 	$ext = strtolower(pathinfo($item['name'], PATHINFO_EXTENSION));
 	if (in_array($ext, ['bmp', 'jpg', 'jpeg', 'png', 'gif'])) {
-		return "image";
+		return "&#xe3f4;";
 	}
 	if (in_array($ext, ['mp4', 'mkv', 'webm', 'avi', 'mpg', 'mpeg', 'rm', 'rmvb', 'mov', 'wmv', 'mkv', 'asf'])) {
-		return "ondemand_video";
+		return "&#xe63a;";
 	}
 	if (in_array($ext, ['ogg', 'mp3', 'wav'])) {
-		return "audiotrack";
+		return "&#xe3a1;";
 	}
 	if (in_array($ext, ['pdf'])) {
-		return "picture_as_pdf";
+		return "&#xe415;";
 	}
-	return "insert_drive_file";
+	return "&#xe24d;";
 }
 ?>
 
@@ -70,15 +70,15 @@ function file_ico($item)
 		<div class="mdui-row">
 			<ul class="mdui-list">
 				<li class="mdui-list-item th">
-					<div class="mdui-col-xs-12 mdui-col-sm-7">文件 <i class="mdui-icon material-icons icon-sort" data-sort="name" data-order="downward">expand_more</i></div>
-					<div class="mdui-col-sm-3 mdui-text-right">修改时间 <i class="mdui-icon material-icons icon-sort" data-sort="date" data-order="downward">expand_more</i></div>
-					<div class="mdui-col-sm-2 mdui-text-right">大小 <i class="mdui-icon material-icons icon-sort" data-sort="size" data-order="downward">expand_more</i></div>
+					<div class="mdui-col-xs-12 mdui-col-sm-7">文件 <i class="mdui-icon material-icons icon-sort" data-sort="name" data-order="downward">&#xe5cf;</i></div>
+					<div class="mdui-col-sm-3 mdui-text-right">修改时间 <i class="mdui-icon material-icons icon-sort" data-sort="date" data-order="downward">&#xe5cf;</i></div>
+					<div class="mdui-col-sm-2 mdui-text-right">大小 <i class="mdui-icon material-icons icon-sort" data-sort="size" data-order="downward">&#xe5cf;</i></div>
 				</li>
 				<?php if ($path != '/') : ?>
 					<li class="mdui-list-item mdui-ripple">
 						<a href="<?php echo get_absolute_path($root . $path . '../'); ?>">
 							<div class="mdui-col-xs-12 mdui-col-sm-7">
-								<i class="mdui-icon material-icons">arrow_upward</i>
+								<i class="mdui-icon material-icons">&#xe5d8;</i>
 								..
 							</div>
 							<div class="mdui-col-sm-3 mdui-text-right"></div>
@@ -93,7 +93,7 @@ function file_ico($item)
 						<li class="mdui-list-item mdui-ripple">
 							<a href="<?php echo get_absolute_path($root . $path . rawurlencode($item['name'])); ?>">
 								<div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate">
-									<i class="mdui-icon material-icons">folder_open</i>
+									<i class="mdui-icon material-icons">&#xe2c8;</i>
 									<span><?php e($item['name']); ?></span>
 								</div>
 								<div class="mdui-col-sm-3 mdui-text-right"><?php echo date("Y-m-d H:i:s", $item['lastModifiedDateTime']); ?></div>
@@ -127,5 +127,5 @@ function file_ico($item)
 	<?php endif; ?>
 </div>
 <script src="/view/langnang/js/list.js"></script>
-<a href="javascript:thumb();" class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent"><i class="mdui-icon material-icons">format_list_bulleted</i></a>
+<a href="javascript:thumb();" class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent"><i class="mdui-icon material-icons">&#xe241;</i></a>
 <?php view::end('content'); ?>

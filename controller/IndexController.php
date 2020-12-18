@@ -31,6 +31,7 @@ class IndexController
 		header("Expires:-1");
 		header("Cache-Control:no_cache");
 		header("Pragma:no-cache");
+		// var_dump($this);
 
 		if (!empty($this->name)) { //file
 			$file = $this->file();
@@ -143,7 +144,6 @@ class IndexController
 		$http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
 		$uri = onedrive::urlencode(get_absolute_path($this->url_path . '/' . $this->name));
 		$data['url'] = $http_type . $_SERVER['HTTP_HOST'] . $root . $uri;
-
 
 		$show = config('show');
 		foreach ($show as $n => $exts) {

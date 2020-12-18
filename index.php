@@ -11,6 +11,7 @@ require  __DIR__ . '/init.php';
  *    程序安装
  */
 if (empty(config('refresh_token'))) {
+	var_dump("AdminController");
 	route::any('/', 'AdminController@install');
 }
 
