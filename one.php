@@ -10,11 +10,13 @@ class one
 {
     static function cache_clear()
     {
+        write_cli_log(__FUNCTION__);
         cache::clear();
     }
 
     static function cache_refresh()
     {
+        write_cli_log(__FUNCTION__);
         oneindex::refresh_cache(get_absolute_path(config('onedrive_root')));
     }
 
@@ -22,6 +24,7 @@ class one
     {
         $refresh_token = config('refresh_token');
         $token = onedrive::get_token($refresh_token);
+        write_cli_log(__FUNCTION__);
         if (!empty($token['refresh_token'])) {
             config('@token', $token);
         }
@@ -188,14 +191,20 @@ class one
 
 }
 
+function write_cli_log($cli)
+{
+    $filename = "./cli/" . $cli . ".log";
+    $log = date("Y-m-d H:i:s") . " " . "\r\n" . file_get_contents($filename);
+    file_put_contents($filename, $log);
+}
 
 if (php_sapi_name() !== "cli") {
     // 添加直接执行one.php?cli=...
     // 无需使用cmd命令
-    $cmd = $_GET["cli"];
+    $cmd = $_GET["cmd"];
     $secret = $config["password"];
 
-    if (isset($_GET["cli"]) && isset($_GET["secret"]) && $_GET["secret"] == $secret) {
+    if (isset($_GET["cmd"]) && isset($_GET["secret"]) && $_GET["secret"] == $secret) {
         if (is_callable(['one', $cmd])) {
             @call_user_func_array(['one', $cmd], array(__FILE__, str_replace("_", ":", $cmd)));
             exit();
