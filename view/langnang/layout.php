@@ -16,6 +16,11 @@
             background-attachment: fixed
         }
 
+        audio:focus {
+            border: 0;
+            outline: 0;
+        }
+
         /* 设置滚动条的样式 */
         ::-webkit-scrollbar {
             width: 6px;
@@ -176,8 +181,12 @@
             <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">refresh</i></a>-->
         </div>
         <div class="nexmoe-item" style="display: none;">
-            <div class="mdui-center" id="dplayer" style="display: none!important;"></div>
+            <div class="mdui-center" id="dplayer"></div>
         </div>
+        <div class="nexmoe-item" style="display: none;">
+            <audio class="mdui-center" id="audio" src="" controls autoplay style="width: 100%;" poster=""></audio>
+        </div>
+
     </div>
     <?php view::section('content'); ?>
 </div>
@@ -199,12 +208,20 @@
         }
         $(".mdui-list-item.file.mdui-ripple>a").eq(dp_next_index)[0].click()
     });
+    var audio = $("#audio")[0];
+    var audio_next_index = null;
+    audio.addEventListener('ended', function () {
+        if (!audio_next_index) {
+            audio.pause();
+            return;
+        }
+        $(".mdui-list-item.file.mdui-ripple>a").eq(audio_next_index)[0].click()
+    }, false);
 
     function play_video() {
         $(".mdui-list-item.file.mdui-ripple").removeClass("mdui-list-item-active");
         $(this).parent().addClass("mdui-list-item-active");
         $("#dplayer").parent().css("display", "block");
-        $("#dplayer").css("display", "block");
 
         const type = $(this).attr("data-type")
         const key = $(this).attr("data-key");
@@ -219,7 +236,25 @@
         }
         dp.switchVideo({url});
         dp.play();
+    }
 
+    function play_audio() {
+        $(".mdui-list-item.file.mdui-ripple").removeClass("mdui-list-item-active");
+        $(this).parent().addClass("mdui-list-item-active");
+        $("#audio").parent().css("display", "block");
+
+        const type = $(this).attr("data-type")
+        const key = $(this).attr("data-key");
+        const url = $(this).attr("data-url");
+        const els = $(".mdui-list-item.file.mdui-ripple>a[data-type=" + type + "]");
+        const list = $(".mdui-list-item.file.mdui-ripple>a");
+        const index = els.index(this);
+        if (index == els.length - 1) {
+            audio_next_index = null;
+        } else {
+            audio_next_index = list.index(els.eq(index + 1)[0]);
+        }
+        audio.setAttribute("src", url);
     }
 </script>
 </body>
