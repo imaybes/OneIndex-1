@@ -67,6 +67,7 @@ function thumb() {
   }
 }
 
+
 $(function () {
   $(".file a").each(function () {
     $(this).on("click", function () {
