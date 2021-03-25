@@ -33,9 +33,17 @@
 ```
 # 每小时刷新一次token
 0 * * * * /具体路径/php /程序具体路径/one.php token:refresh
+OR
+0 * * * * /程序具体路径/one.php?secret=password&cmd=token_refresh
+OR
+0 * * * * /程序具体路径/cli/token_refresh.php?secret=password
 
 # 每十分钟后台刷新一遍缓存
 */10 * * * * /具体路径/php /程序具体路径/one.php cache:refresh
+OR
+*/10 * * * * /程序具体路径/one.php?secret=password&cmd=cache_refresh
+OR
+*/10 * * * * /程序具体路径/cli/cache_refresh.php?secret=password
 ```
 
 ### Docker 安装运行
