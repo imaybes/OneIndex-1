@@ -120,7 +120,7 @@ foreach ((array)$items as $item) {
                         </li>
                     <?php endif; ?>
 
-                    <?php foreach ((array)$items as $index=>$item) : ?>
+                    <?php foreach ((array)$items as $index => $item) : ?>
                         <?php if (!empty($item['folder'])) : ?>
 
                             <li class="mdui-list-item mdui-ripple">
@@ -135,13 +135,28 @@ foreach ((array)$items as $item) {
                             </li>
                         <?php elseif (file_ico($item) == '&#xe63a;'): ?>
                             <li class="mdui-list-item file mdui-ripple">
-                                <a href="javascript:void 0" data-type="<?php echo file_ico($item); ?>" data-url="<?php e($item['downloadUrl']); ?>" data-key="<?php echo $index; ?>" onclick="play_video.call(this)">
+                                <a href="javascript:void 0" data-type="<?php echo file_ico($item); ?>"
+                                   data-url="<?php e($item['downloadUrl']); ?>" data-key="<?php echo $index; ?>"
+                                   onclick="play_video.call(this)">
                                     <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate">
                                         <i class="mdui-icon material-icons"><?php echo file_ico($item); ?></i>
                                         <span><?php e($item['name']); ?></span>
                                     </div>
                                     <div class="mdui-col-sm-3 mdui-text-right"><?php echo date("Y-m-d H:i:s", $item['lastModifiedDateTime']); ?></div>
                                     <div class="mdui-col-sm-2 mdui-text-right"><?php echo onedrive::human_filesize($item['size']); ?></div>
+                                </a>
+                            </li>
+                        <?php elseif (file_ico($item) == '&#xe3f4;'): ?>
+                            <li class="mdui-list-item file mdui-ripple">
+                                <a href="<?php echo get_absolute_path($root . $path) . rawurlencode($item['name']); ?>"
+                                   target="_self">
+                                    <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate">
+                                        <i class="mdui-icon material-icons"><?php echo file_ico($item); ?></i>
+                                        <span><?php e($item['name']); ?></span>
+                                    </div>
+                                    <div class="mdui-col-sm-3 mdui-text-right"><?php echo date("Y-m-d H:i:s", $item['lastModifiedDateTime']); ?></div>
+                                    <div class="mdui-col-sm-2 mdui-text-right"><?php echo onedrive::human_filesize($item['size']); ?></div>
+                                    <img class="mdui-img-fluid mdui-center" src="<?php e($item['downloadUrl']); ?>"/>
                                 </a>
                             </li>
                         <?php else : ?>
