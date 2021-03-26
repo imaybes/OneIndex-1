@@ -38,6 +38,8 @@ class one
         }
         print ' 本地文件：' . $localfile . PHP_EOL;
 
+        write_cli_log(__FUNCTION__, "from: $localfile; to: $remotefile");
+
         if (empty($remotefile)) {
             $remotepath = pathinfo($localfile, PATHINFO_BASENAME);
         } elseif (substr($remotefile, -1) == '/') {
@@ -70,6 +72,7 @@ class one
     {
         $localfolder = realpath($localfolder);
         $remotefolder = get_absolute_path($remotefolder);
+        write_cli_log(__FUNCTION__);
         print ' 开始上传文件夹' . PHP_EOL;
         self::folder2upload($localfolder, $remotefolder);
     }
@@ -191,10 +194,10 @@ class one
 
 }
 
-function write_cli_log($cli)
+function write_cli_log($cli, $log = "")
 {
     $filename = "./cli/" . $cli . ".log";
-    $log = date("Y-m-d H:i:s") . " " . "\r\n" . file_get_contents($filename);
+    $log = date("Y-m-d H:i:s") . " $log" . "\r\n" . file_get_contents($filename);
     file_put_contents($filename, $log);
 }
 
@@ -206,7 +209,11 @@ if (php_sapi_name() !== "cli") {
 
     if (isset($_GET["cmd"]) && isset($_GET["secret"]) && $_GET["secret"] == $secret) {
         if (is_callable(['one', $cmd])) {
-            @call_user_func_array(['one', $cmd], array(__FILE__, str_replace("_", ":", $cmd)));
+            if (in_array($cmd, array("cache_clear", "cache_refresh", "token_refresh"))) {
+                @call_user_func_array(['one', $cmd], array(__FILE__, str_replace("_", ":", $cmd)));
+            } else if (in_array($cmd, array("upload_file", "upload_folder"))) {
+                @call_user_func_array(['one', $cmd], array($_GET["from"], $_GET["to"]));
+            }
             exit();
         }
     } else {
