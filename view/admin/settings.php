@@ -12,10 +12,19 @@
 		  <input class="mdui-textfield-input" type="text" name="site_name" value="<?php echo $config['site_name'];?>"/>
 		</div>
 
+        <div class="mdui-textfield">
+            <h4>是否开启强制登录</h4>
+            <label class="mdui-textfield-label"></label>
+            <label class="mdui-switch">
+                <input type="checkbox" name="force_login"  <?php echo $config['force_login']?'checked':'';?>/>
+                <i class="mdui-switch-icon"></i>
+            </label>
+        </div>
+
 		<div class="mdui-textfield">
 		  <h4>网站主题<small></small></h4>
 		  <select name="style" class="mdui-select">
-			  <?php 
+			  <?php
 				foreach(scandir(ROOT.'view') as $k=>$s){
 				    $styles[$k] = trim($s, '/');
 				}
@@ -50,7 +59,7 @@
 		<div class="mdui-textfield">
 		  <h4>缓存类型<small></small></h4>
 		  <select name="cache_type" class="mdui-select">
-			  <?php 
+			  <?php
 			 	foreach(['secache', 'filecache', 'memcache', 'redis'] as $type):
 			  ?>
 			  <option value ="<?php echo $type;?>" <?php echo ($type==$cache_type)?'selected':'';?>><?php echo $type;?></option>
@@ -71,9 +80,9 @@
 			  <i class="mdui-switch-icon"></i>
 		  </label>
 		</div>
-		
 
-		
+
+
 
 	   <button type="submit" class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-float-right">
 	   	<i class="mdui-icon material-icons">&#xe161;</i> 保存
